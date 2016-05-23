@@ -1,0 +1,68 @@
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""" BUNDLES """""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+filetype off
+
+call plug#begin('~/.vim/plugged')
+
+" Global
+Plug 'MarcWeber/vim-addon-mw-utils'
+Plug 'embear/vim-localvimrc'
+Plug 'reedes/vim-wheel'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
+Plug 'junegunn/vim-easy-align'
+
+" Styling
+Plug 'romainl/Apprentice'
+Plug 'w0ng/vim-hybrid'
+Plug 'tomasr/molokai'
+Plug 'sickill/vim-monokai'
+Plug 'noahfrederick/vim-hemisu'
+Plug 'morhetz/gruvbox'
+Plug 'bling/vim-airline'
+Plug 'gosukiwi/vim-atom-dark'
+Plug 'junegunn/seoul256.vim'
+Plug 'cdmedia/itg_flat_vim'
+Plug 'orthecreedence/void.vim'
+Plug 'vim-scripts/twilight256.vim'
+Plug 'vim-scripts/desertEx'
+Plug 'vim-scripts/synic.vim'
+Plug 'vim-scripts/lilypink'
+Plug 'croaker/mustang-vim'
+Plug 'adlawson/vim-sorcerer'
+Plug 'Lokaltog/vim-distinguished'
+Plug 'jordwalke/flatlandia'
+
+" Writing/Authoring Tools
+Plug 'reedes/vim-pencil'
+Plug 'tpope/vim-abolish'
+Plug 'junegunn/limelight.vim'
+Plug 'junegunn/goyo.vim'
+Plug 'tpope/vim-markdown'
+Plug 'mattly/vim-markdown-enhancements'
+Plug 'nelstrom/vim-markdown-folding'
+Plug 'reedes/vim-lexical'
+Plug 'reedes/vim-litecorrect'
+Plug 'reedes/vim-textobj-sentence'
+Plug 'reedes/vim-wordy'
+
+" Development Tools
+Plug 'tpope/vim-surround'
+Plug 'elzr/vim-json'
+Plug 'pangloss/vim-javascript'
+Plug 'hail2u/vim-css3-syntax'
+Plug 'sjl/gundo.vim'
+Plug 'mbbill/undotree'
+Plug 'AndrewRadev/sideways.vim'
+Plug 'tomtom/quickfixsigns_vim'
+Plug 'rking/ag.vim'
+Plug 'tpope/vim-commentary'
+Plug 'scrooloose/syntastic'
+Plug 'mattn/emmet-vim'
+Plug 'ajh17/VimCompletesMe'
+Plug 'tpope/vim-fugitive'
+
+call plug#end()
+
+" vim: set sw=4 ts=4 sts=4 et tw=78 nospell:
