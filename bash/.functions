@@ -3,7 +3,7 @@
 ################################################################################
 
 # Helper to test if executable exists
-exists() { type -t "$1" > /dev/null 2>&1; }
+function exists() { type -t "$1" > /dev/null 2>&1; }
 
 # Helper to clean vars
 function trimspace() {
@@ -51,7 +51,7 @@ function todos {
 	#local m=$(trimspace $(git diff --numstat 2> /dev/null | wc -l))
 	LOCAL_DIR=$(git rev-parse --show-toplevel 2> /dev/null)
 	LOCAL_DIR=${LOCAL_DIR:-.}
-	find "${LOCAL_DIR}" -type f -exec grep -H -n '(TODO|FIX(ME)?):' {} \; 2> /dev/null 
+	find "${LOCAL_DIR}" -type f -exec grep -H -n '(TODO|FIX(ME)?):' {} \; 2> /dev/null
 }
 
 # jump to root folder of git repo
@@ -69,6 +69,10 @@ function json() {
 		python -mjson.tool | pygmentize -l javascript
 	fi
 }
+
+#   ---------------------------------------
+#    NET
+#   ---------------------------------------
 
 # Create a data URL from a file
 function dataurl() {
@@ -113,6 +117,24 @@ function netserver() {
 	fi
 	sleep 1 && open "http://${ip}:${port}/" &
 	xsp2 --port "${port}" --address "${ip}" --verbose
+}
+
+
+#   ---------------------------------------
+#    GIT
+#   ---------------------------------------
+
+function gitexport(){
+	mkdir -p "$1"
+	git archive master | tar -x -C "$1"
+}
+
+#My favorite git shortcut. Adds all changes, commits them with the specified message and pushes to the default repo in one shot.
+# Usage: lazygit "{message here}"
+function lazygit() {
+    git add .
+    git commit -a -m "$1"
+    git push
 }
 
 # `tre` is a shorthand for `tree` with hidden files and color enabled, ignoring
@@ -176,7 +198,7 @@ function gittreestatus() {
 	fi
 }
 
-gitpullall() {
+function gitpullall() {
   REMOTES="$@";
   if [ -z "$REMOTES" ]; then
     REMOTES=$(git remote);
@@ -209,8 +231,11 @@ gitpullall() {
   done
 }
 
+
+
+
 # Swap 2 filenames around, if they exist
-function swap() { 
+function swap() {
     local TMPFILE=tmp.$$
 
     [ $# -ne 2 ] && echo "swap: 2 arguments needed" && return 1
@@ -245,14 +270,14 @@ function extract() {
 }
 
 # Create a horizontal rule, hr style
-function hr() {
+function function hr() {
 	set -f
 	if [[ -n $1 ]]; then
 		space_character=$( echo "$1" | head -c 1)
 	else
 		space_character='='
 	fi
-	
+
 	for i in $(seq 1 "$(tput cols)");
 	do
 		echo -n "${space_character}";
@@ -262,17 +287,17 @@ function hr() {
 }
 
 # Move file to a backup ".old" version
-old() {
+function old() {
     mv "$1"{,.old}
 }
 
 # Note taking functions
-nls() {
+function nls() {
 	: "${NOTE_DIR:?'NOTE_DIR ENV Var not set'}"
 	ls -c "$NOTE_DIR" | grep "$*"
 }
 
-n() {
+function n() {
 	: "${NOTE_DIR:?'NOTE_DIR ENV Var not set'}"
 	if [ $# -eq 0 ]
 		then
@@ -283,12 +308,12 @@ n() {
 }
 
 # get battery level on osx
-battery() {
+function battery() {
 	ioreg -l | grep -i capacity | tr '\n' ' | ' | awk '{printf("%.2f%%\n", $10/$5 * 100)}'
 }
 
 # c - browse chrome history
-c() {
+function c() {
 	local cols sep
 		cols=$(( COLUMNS / 3 ))
 		sep='{::}'
@@ -303,7 +328,7 @@ c() {
 }
 
 # fshow - git commit browser (enter for show, ctrl-d for diff, ` toggles sort)
-flog() {
+function flog() {
   local out shas sha q k
   while out=$(
       git log --graph --color=always \
@@ -327,14 +352,14 @@ flog() {
 # fe [FUZZY PATTERN] - Open the selected file with the default editor
 #   - Bypass fuzzy finder if there's only one match (--select-1)
 #   - Exit if there's no match (--exit-0)
-fe() {
+function fe() {
   local file
   file=$(fzf --query="$1" --select-1 --exit-0)
   [ -n "$file" ] && ${EDITOR:-vim} "$file"
 }
 
 # fd - cd to selected directory
-fd() {
+function fd() {
   local dir
   dir=$(find ${1:-*} -path '*/\.*' -prune \
                   -o -type d -print 2> /dev/null | fzf +m) &&
@@ -342,20 +367,20 @@ fd() {
 }
 
 # fda - including hidden directories
-fda() {
+function fda() {
   local dir
   dir=$(find ${1:-.} -type d 2> /dev/null | fzf +m) && cd "$dir"
 }
 
 # cdf - cd into the directory of the selected file
-cdf() {
+function cdf() {
    local file
    local dir
    file=$(fzf +m -q "$1") && dir=$(dirname "$file") && cd "$dir"
 }
 
 # fkill - kill process
-fkill() {
+function fkill() {
   pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
 
   if [ "x$pid" != "x" ]
@@ -366,7 +391,7 @@ fkill() {
 
 # Override Z for use with fzf
 unalias z 2> /dev/null
-z() {
+function z() {
   if [[ -z "$*" ]]; then
     cd "$(_z -l 2>&1 | fzf +s --tac | sed 's/^[0-9,.]* *//')"
   else
