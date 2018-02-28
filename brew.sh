@@ -15,8 +15,11 @@ brew install node
 ## Makes adding SSH keys to servers easier.
 brew install ssh-copy-id
 
-brew install docker boot2docker
-brew install boot2docker
+#brew install docker boot2docker
+#brew install boot2docker
+
+# Install kubernetes
+brew install kubernetes-cli
 
 brew install gcc
 brew install git
@@ -25,12 +28,21 @@ brew install openssh
 brew install pandoc
 brew install sqlite
 brew install tmux
+brew install go
+brew install node
 
-# cli tools
+# Cli tools
 brew install ack
 brew install tree
 brew install wget
 
 brew install zsh
+
+# Brew maintainace
+brew update && brew outdated
+
+# Cleanup
+brew cleanup --force
+rm -f -r /Library/Caches/Homebrew/*
 
 exit 0

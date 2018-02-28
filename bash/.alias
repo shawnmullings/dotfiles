@@ -5,16 +5,23 @@
 # conditional alias for ls (fixes osx issue)
 ls --color=auto &> /dev/null && alias ls='ls --color=auto' ||
 
+alias la="ls -aF"
+alias ld="ls -ld"
+alias ll="ls -l"
+alias lt='ls -At1 && echo "------Oldest--"'
+alias ltr='ls -Art1 && echo "------Newest--"'
+
 # basic shell aliases
 alias lsd='ls -Gl | grep "^d"'
 alias lsort='echo "========== Newest ==========" && ls -At1 && echo "========== Oldest =========="'
 alias reload="source ~/.bash_profile && clear"
 alias cd..="cd .."
 alias ..="cd .."
-alias ...="cd ../.."
-alias ....="cd ../../.."
-alias .....="cd ../../../.."
-alias ......="cd ../../../../.."
+alias .2="cd ../.."
+alias .3="cd ../../.."
+alias .4="cd ../../../.."
+alias .5="cd ../../../../.."
+alias cpwd="pwd|tr -d "\n"|pbcopy"
 
 # aliases to default commands with certain switches
 alias grep='grep --color=auto'
@@ -46,6 +53,20 @@ alias vimr='vim -u NONE'
 alias gs="git status"
 alias gb="git branch"
 alias gap="git add -p"
+alias ga="git add"
+alias gc="git commit --verbose"
+alias gca="git commit -a --verbose"
+alias gcm="git commit -m"
+alias gcam="git commit -a -m"
+alias gst="git stash"
+alias gstl="git stash list"
+alias gsta="git stash apply"
+alias gsts="git stash save"
+alias gls="log --pretty=format:'%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]' --decorate --date=short"
+alias gremove="find . -name '.git' -exec rm -rf {} \;"
+
+# atom
+alias atom="atom -nw"
 
 # apache
 alias apachestart='sudo apachectl start'
@@ -76,9 +97,3 @@ alias showdeskicons="defaults write com.apple.finder CreateDesktop -bool true &&
 alias hidedeskicons="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
 alias lock='/System/Library/CoreServices/"Menu Extras"/User.menu/Contents/Resources/CGSession -suspend'
 alias ss='/System/Library/Frameworks/ScreenSaver.framework/Resources/ScreenSaverEngine.app/Contents/MacOS/ScreenSaverEngine'
-
-# Ubuntu specific
-alias hibernate='sh -c "dbus-send --type=method_call --dest=org.gnome.ScreenSaver /org/gnome/ScreenSaver org.gnome.ScreenSaver.Lock && dbus-send --system --print-reply --dest=org.freedesktop.UPower /org/freedesktop/UPower org.freedesktop.UPower.Suspend"'
-
-# julia language
-alias julia="exec '/Applications/Julia-0.2.0.app/Contents/Resources/julia/bin/julia'"

@@ -109,6 +109,7 @@ function phpserver() {
 }
 
 # Start a .NET server using mono
+# Usage: netserver
 function netserver() {
 	local port="${1:-8080}"
 	local ip=$(ipconfig getifaddr en1)
@@ -120,10 +121,13 @@ function netserver() {
 }
 
 
+
 #   ---------------------------------------
 #    GIT
 #   ---------------------------------------
 
+# Export git repo for archiving
+# Usage: git export
 function gitexport(){
 	mkdir -p "$1"
 	git archive master | tar -x -C "$1"
@@ -270,7 +274,8 @@ function extract() {
 }
 
 # Create a horizontal rule, hr style
-function function hr() {
+
+function hr() {
 	set -f
 	if [[ -n $1 ]]; then
 		space_character=$( echo "$1" | head -c 1)
@@ -397,4 +402,16 @@ function z() {
   else
     _z "$@"
   fi
+}
+
+
+#   ---------------------------------------
+#    Misc.
+#   ---------------------------------------
+
+#	Show hidden files
+# Usage: showhiddenfiles {true/false}
+function showhiddenfiles() {
+		defaults write com.apple.finder AppleShowAllFiles -bool "$1"
+		killall Finder
 }

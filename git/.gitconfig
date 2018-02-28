@@ -1,6 +1,6 @@
 [user]
-name = Shawn Mullings
-	email = shawnmullings@gmail.com
+	name = [PLACE YOUR NAME HERE]
+	email = [PLACE YOUR EMAIL HERE]
 [http]
 	postBuffer = 524288000
 [core]
@@ -112,7 +112,7 @@ name = Shawn Mullings
 	ll = log --graph --date=short
 
 	# git flow
-	fs = !git flow feature start 
+	fs = !git flow feature start
 	ff = !git flow feature finish $1 && git pull && git push && echo
 
 	# from https://git.wiki.kernel.org/index.php/Aliases
@@ -282,10 +282,15 @@ name = Shawn Mullings
 
 	# http://superuser.com/a/169696
 	# prettier than my version of this
-	#  doesn't really work, should probably use git for-each-ref 
+	#  doesn't really work, should probably use git for-each-ref
 	#heads = !"git log origin/master.. --format='%Cred%h%Creset;%C(yellow)%an%Creset;%H;%Cblue%f%Creset' | git name-rev --stdin --always --name-only | column -t -s';'"
 
 	pconfig = config -f .git/config
 	up = "!git remote update -p; git merge --ff-only @{u}"
 
 
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
