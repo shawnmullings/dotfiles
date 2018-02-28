@@ -14,6 +14,10 @@ echo "Installing brew-cask modules via 'brew-cask.sh'"
 sh ./brew-cask.sh
 echo "'brew-cask.sh' completed"
 
+echo "Config Mac via 'config.sh'"
+sh ./config.sh
+echo "'config.sh' completed"
+
 
 # Check for .dotfiles file and add symlink
 dotfiles="$HOME/.dotfiles"
