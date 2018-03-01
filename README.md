@@ -2,7 +2,6 @@
 ![banner](http://i0.wp.com/www.shawnmullings.com/wp-content/uploads/2016/05/dotfiles.png?w=500 "dotfiles")
 
 ## /.dotfiles
-***
 
 This repo serves as a collection of all the dotfiles I am currently using. The "install.sh" script will install all of the dotfiles and associated modules via Homebrew.
 
@@ -31,7 +30,7 @@ From terminal navigate to git repo folder. Run the following command:
 Most stuff is from [https://github.com/jamestomasino](James Tomasino), but a lot of the aliases and functions are collected from around the web. If you notice your idea in my repo somewhere and want credit, send me a note. Once I'm done rolling my eyes, I'll post a link or something.
 
 ## Function List
-***
+
 ### Shortcut Functions ###
 
     cdf - Change directory to current finder window
@@ -97,7 +96,7 @@ Most stuff is from [https://github.com/jamestomasino](James Tomasino), but a lot
     gitpullall - Pulls all remotes
 
 ## Aliases
-***
+
 ### General ###
 
     cleanup - Deletes .DS_Store and .thumbs files from current folder
@@ -167,7 +166,7 @@ Most stuff is from [https://github.com/jamestomasino](James Tomasino), but a lot
     urlencode - URL-encode strings
 
 ## Assumptions
-***
+
  Assumes you have the browsers installed:
 
     ff - Opens a new instance of Firefox for development testing
@@ -184,4 +183,4 @@ stylistic changes though -- they are unlikely to be accepted. Thanks!
 
 ## License
 
-[Apache License 2.0](./LICENSE)
+[Apache License 2.0](../blob/master/LICENSE)
