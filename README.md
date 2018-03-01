@@ -183,4 +183,4 @@ stylistic changes though -- they are unlikely to be accepted. Thanks!
 
 ## License
 
-[Apache License 2.0](../blob/master/LICENSE)
+[Apache License 2.0](./LICENSE)
