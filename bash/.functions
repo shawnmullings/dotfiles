@@ -120,6 +120,154 @@ function netserver() {
 	xsp2 --port "${port}" --address "${ip}" --verbose
 }
 
+#   ---------------------------------------
+#    VEEVA CLM
+#   ---------------------------------------
+
+# Create key messages from project files
+# Usage: veeva-dist
+function veeva-dist(){
+	# Variables
+	distDir="_dist"
+	globalDir="_global"
+	ftpDir="ftp"
+	pDir=$(pwd)
+
+	if git rev-parse --git-dir > /dev/null 2>&1; then
+		: # This is a valid git repository (but the current working
+		# directory may not be the top level.
+		# Check the output of the git rev-parse command if you care)
+
+		revNum=$(git log --pretty=format:'%h' -n 1)
+	else
+	  	: # this is not a git repository
+		#revNum=$(date +%Y-%m-%d.%H:%M:%S)
+		revNum=$(date +%Y%m%d%H%M%S)
+	fi
+
+	echo "$revNum"
+
+	# Remove and recreate "tmp folder"
+	printf "\n"
+	printf "Remove and recreate 'tmp folder'"
+	printf "\n"
+
+	 if [ -d "$distDir" ]; then
+	    rm -r "$distDir"
+	    mkdir "$distDir"
+	 else
+	     mkdir "$distDir"
+	 fi
+
+	# Find add directories that are not sym links and "$distDir" folder
+	printf "\n"
+	printf "Find add directories that are not sym links and ""$distDir"" folder"
+	printf "\n"
+
+	for file in *; do
+	  if [[ -d "$file" && ! -L "$file" && $(basename "$file") != "$distDir" && $(basename "$file") != "$globalDir" ]]; then
+	     cp -rf "$file" "$distDir"
+	  fi
+	done
+
+	# Find add directories that are not sym links and "$distDir" folder
+
+	printf "\n"
+	printf "Find add directories that are not sym links and ""$distDir"" folder"
+	printf "\n"
+
+	for f in "$distDir"/*; do
+	  if [[ -d "$f" && ! -L "$f" ]]; then
+	    cp -r $(pwd)/"$globalDir" $(pwd)/"$f"/"$globalDir"
+
+	    # edit global config files
+		printf "\n"
+		printf "edit global config files"
+		printf "\n"
+
+	    sed -i.bak -e "s|'../|'|g" $(pwd)/"$f"/"_global/js/config.js"
+		sed -i.bak -e "s|'../|'|g" $(pwd)/"$f"/"_global/js/includes.js"
+
+		# remove backup (.bak) global config files
+		printf "\n"
+		printf "remove backup (.bak) global config files"
+		printf "\n"
+
+		rm $(pwd)/"$f"/"_global/js/config.js.bak"
+		rm $(pwd)/"$f"/"_global/js/includes.js.bak"
+
+		# edit html file to prevent caching of image|js|css
+		printf "\n"
+		printf "edit html file to prevent caching of image|js|css"
+		printf "\n"
+
+		if [ ! -f $(pwd)/"$f"/$(basename "$f").* ]; then
+			printf "\n\n"
+	    	printf "** ERROR ** - File not found!"
+	    	printf ">>> "$(pwd)/"$f"/$(basename "$f")".html"
+	    	printf "\n\n"
+	    	#exit 1
+	    else
+		    sed -i.bak -e "s|../_global|_global|g" $(pwd)/"$f"/$(basename "$f").html
+		    sed -i.bak -e "s|.js\'|.js?$revNum\'|g" $(pwd)/"$f"/$(basename "$f").html
+		    sed -i.bak -e "s|.js\"|.js?$revNum\"|g" $(pwd)/"$f"/$(basename "$f").html
+		    sed -i.bak -e "s|.css\'|.css?$revNum\'|g" $(pwd)/"$f"/$(basename "$f").html
+		    sed -i.bak -e "s|.css\"|.css?$revNum\"|g" $(pwd)/"$f"/$(basename "$f").html
+		    sed -i.bak -e "s|.jpg|.jpg?$revNum|g" $(pwd)/"$f"/$(basename "$f").html
+		    sed -i.bak -e "s|.jpeg|.jpeg?$revNum|g" $(pwd)/"$f"/$(basename "$f").html
+		    sed -i.bak -e "s|.png|.png?$revNum|g" $(pwd)/"$f"/$(basename "$f").html
+		    sed -i.bak -e "s|.svg|.svg?$revNum|g" $(pwd)/"$f"/$(basename "$f").html
+		    sed -i.bak -e "s|.gif|.gif?$revNum|g" $(pwd)/"$f"/$(basename "$f").html
+		    rm $(pwd)/"$f"/$(basename "$f").html.bak
+		fi
+
+		# check for full screenshot file
+		printf "\n"
+		printf "check for full screenshot file"
+		printf "\n"
+
+		if [ ! -f $(pwd)/"$f"/$(basename "$f")-full.* ]; then
+			printf "\n"
+	    	printf "** ERROR ** - File not found!"
+	    	printf ">>> "$(pwd)/"$f"/$(basename "$f")"-full.jpg"
+	    	printf "\n"
+	    	#exit 1
+		fi
+
+		# check for thumbnail file
+		if [ ! -f $(pwd)/"$f"/$(basename "$f")-thumb.* ]; then
+			printf "\n"
+	     	printf "** ERROR ** - File not found!"
+	    	printf ">>> "$(pwd)/"$f"/$(basename "$f")"-thumb.jpg"
+	    	printf "\n"
+	    	#exit 1
+		fi
+	  fi
+	done
+
+	printf "\n"
+	printf "EDIT JS AND CSS FILES TO PREVENT CACHING OF IMAGE|JS|CSS"
+	printf "\n"
+
+	# edit JS and CSS files to prevent caching of image|js|css
+	find ./"$distDir" -name '*.css' -print0 | xargs -0 sed -i "" "s|.jpg|.jpg?$revNum|g"
+	find ./"$distDir" -name '*.css' -print0 | xargs -0 sed -i "" "s|.png|.png?$revNum|g"
+
+
+	# Create ziped key messages
+	printf "\n"
+	printf "CREATE ZIPPED KEY MESSAGES"
+	printf "\n"
+
+	for f in "$distDir"/*/; do
+	  if [[ -d "$f" && ! -L "$f" && $(basename "$f") != "$globalDir" ]]; then
+	  	pushd $(pwd)/"$distDir"
+		#zip -qr - $(basename "$f")/ | pv -s $(gdu -bs $(basename "$f") | awk '{print $1}') > $(basename "$f").zip
+	    zip -qr -X -dd $(basename "$f").zip $(basename "$f")/
+	    popd
+	  fi
+	done
+}
 
 
 #   ---------------------------------------
