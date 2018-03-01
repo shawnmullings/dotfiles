@@ -1,7 +1,7 @@
 
 ![banner](http://i0.wp.com/www.shawnmullings.com/wp-content/uploads/2016/05/dotfiles.png?w=500 "dotfiles")
 
-# dotfiles
+## /.dotfiles
 ***
 
 This repo serves as a collection of all the dotfiles I am currently using. The "install.sh" script will install all of the dotfiles and associated modules via Homebrew.
@@ -30,7 +30,7 @@ From terminal navigate to git repo folder. Run the following command:
 
 Most stuff is from [https://github.com/jamestomasino](James Tomasino), but a lot of the aliases and functions are collected from around the web. If you notice your idea in my repo somewhere and want credit, send me a note. Once I'm done rolling my eyes, I'll post a link or something.
 
-# Function List
+## Function List
 ***
 ### Shortcut Functions ###
 
@@ -49,10 +49,10 @@ Most stuff is from [https://github.com/jamestomasino](James Tomasino), but a lot
     fext {extension} - Recursively searches for all files with the matching extension using the function findfilesbyextension
     dext  {extension} - Recursively deletes files with the specified extension using the function deletefilesbyextension
     .. - Up one directory
-    ... - Up two directories
-    .... - Up three directories
-    ..... - Up four directories
-    ...... - Up five directories
+    .2 - Up two directories
+    .3 - Up three directories
+    .4 - Up four directories
+    .5 - Up five directories
 
 ### Admin ###
 
@@ -76,6 +76,19 @@ Most stuff is from [https://github.com/jamestomasino](James Tomasino), but a lot
 
     lazygit "{Commit Message}" - My favorite shortcut for git. Adds all changes, commits it with the message you specify, and pushes to the current branch.
     gs - equivilant of git status
+    gb - equivilant of git branch
+    gap - equivilant of git add -p
+    ga - equivilant of git add
+    gc - equivilant of git commit --verbose
+    gca - equivilant of git commit -a --verbose
+    gcm - equivilant of git commit -m
+    gcam - equivilant of git commit -a -m
+    gst - equivilant of git stash
+    gstl - equivilant of git stash list
+    gsta - equivilant of git stash apply
+    gsts - equivilant of git stash save
+    gls - equivilant of log --pretty=format:'%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]' --decorate --date=short
+    gremove - equivilant of find . -name '.git' -exec rm -rf {} \;
     gitexport - Creates an export from git without the git files. Useful for deployment or sending to a vendor.
     parse_git_branch - Return current git branch
     gitstaged - Return number of staged files in folder
@@ -83,7 +96,7 @@ Most stuff is from [https://github.com/jamestomasino](James Tomasino), but a lot
     gituntracked - Return number of untracked files in folder
     gitpullall - Pulls all remotes
 
-# Aliases
+## Aliases
 ***
 ### General ###
 
@@ -144,6 +157,8 @@ Most stuff is from [https://github.com/jamestomasino](James Tomasino), but a lot
 
 ### Development ###
     apacheEdit - Edit httpd.conf
+    apachestart - Start apache server
+    apachestop - Stop apache server
     apacheRestart - Restart Apache
     editHosts - Edit /etc/hosts file
     herr - Tails HTTP error logs
@@ -151,7 +166,7 @@ Most stuff is from [https://github.com/jamestomasino](James Tomasino), but a lot
     httpHeaders - Grabs headers from web page
     urlencode - URL-encode strings
 
-# Assumptions
+## Assumptions
 ***
  Assumes you have the browsers installed:
 
@@ -160,3 +175,13 @@ Most stuff is from [https://github.com/jamestomasino](James Tomasino), but a lot
     chrome - Opens a new instance of Chrome for development testing
 
     opera - Opens a new instance of opera for development testing
+
+## Pull requests welcome!
+
+Spotted an error? Something doesn't make sense? Send me a [pull
+request](https://github.com/shawnmullings/dotfiles/pulls)! Please avoid making
+stylistic changes though -- they are unlikely to be accepted. Thanks!
+
+## License
+
+[Creative Commons Attribution License](http://creativecommons.org/licenses/by/2.0/)
