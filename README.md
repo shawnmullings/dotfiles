@@ -184,4 +184,4 @@ stylistic changes though -- they are unlikely to be accepted. Thanks!
 
 ## License
 
-[Creative Commons Attribution License](http://creativecommons.org/licenses/by/2.0/)
+[Apache License 2.0](./LICENSE)
