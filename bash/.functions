@@ -274,6 +274,12 @@ function veeva-dist(){
 #    GIT
 #   ---------------------------------------
 
+
+# Remove .git folders recursively
+function degit(){
+	find . | grep "\.git/" | xargs rm -rf	
+}
+
 # Export git repo for archiving
 # Usage: git export
 function gitexport(){
@@ -288,6 +294,9 @@ function lazygit() {
     git commit -a -m "$1"
     git push
 }
+
+
+
 
 # `tre` is a shorthand for `tree` with hidden files and color enabled, ignoring
 # the `.git` directory, listing directories first. The output gets piped into
@@ -562,4 +571,11 @@ function z() {
 function showhiddenfiles() {
 		defaults write com.apple.finder AppleShowAllFiles -bool "$1"
 		killall Finder
+}
+
+# Get local weather forcast via terminal
+# Usage: forcast {location} 
+# example: forcast atlanta
+function forcast() {
+    curl wttr.in/$1
 }
