@@ -99,6 +99,7 @@ Most stuff is from [https://github.com/jamestomasino](James Tomasino), but a lot
 
 ### General ###
 
+    forcast - Get local weather forcast via terminal
     cleanup - Deletes .DS_Store and .thumbs files from current folder
     reload - reloads bash without exiting terminal
     shellupdate - updates dot files to latest
